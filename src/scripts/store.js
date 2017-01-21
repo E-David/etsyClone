@@ -1,9 +1,15 @@
 import Backbone from "backbone"
 import _ from "underscore"
+import {EtsyCollection,FavCollection,EtsyModel} from "./models/dataModels"
 
 const STORE = _.extend(Backbone.Events, {
 	_data: {
-
+		etsyCollection: new EtsyCollection(),
+		etsyModel: new EtsyModel(),
+		favCollection: new FavCollection(),
+		isLoggedIn: false,
+		loginPopupView: "Sign In", // Sign In | Register
+		showLogin: false
 	},
 	_emitChange: function() {
 		this.trigger("storeChanged")
@@ -16,7 +22,7 @@ const STORE = _.extend(Backbone.Events, {
 	},
 	_set: function(input,value) {
 		//allows programmer to change STORE using object or
-		//key-value pair, then signals change to View 
+		//key-value pair, then signals to update View of app
 		if (typeof input == "object") {
 			var objectInput = input
 			this._data = _.extend(this._data,objectInput)

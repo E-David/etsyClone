@@ -26,7 +26,7 @@ const app = function() {
 		handleFavorites: function() {
 
 		},
-		redirect = function() {
+		redirect: function() {
 			location.hash = "home"
 		},
 		initialize: function() {
