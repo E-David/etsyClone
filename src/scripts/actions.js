@@ -1,5 +1,6 @@
 import STORE from "./store"
 import {EtsyCollection,EtsyModel,FavModel,FavCollection} from "./models/dataModels"
+import User from "./models/userModel"
 
 const ACTIONS = {
 	addFavorite: function(model) {
@@ -66,6 +67,7 @@ const ACTIONS = {
 			.then(
 				function(resp){
 					alert(`Logged in as ${email}`)
+					STORE._set("isLoggedIn", true)
 					location.hash = "home"
 				},
 				function(err){
@@ -79,8 +81,8 @@ const ACTIONS = {
 			.then(
 				function(){
 					alert("You have successfully logged out")
+					STORE._set("isLoggedIn", false)
 					location.hash = "home"
-					STORE._emitChange()
 				},
 				function(){
 					alert("An error occurred while logging out")
@@ -122,16 +124,7 @@ const ACTIONS = {
 		STORE._set("loginPopupView",buttonClicked)
 	},
 	validate: function(event) {
-		var password = STORE._get("password"),
-			confirmPassword = STORE._get("confirmPassword")
-
-		if(password !== confirmPassword) {
-			event.target.confirmPassword.setCustomValidity("Passwords don't match")
-			return false
-		} else {
-			event.target.confirmPassword.setCustomValidity("")
-			return true
-		}
+		
 	}
 }
 

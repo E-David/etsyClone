@@ -2,6 +2,7 @@ import React from "react"
 import STORE from "../store"
 import Header from "./header"
 import LoginPopup from "./loginPopup"
+import ACTIONS from "../actions"
 
 const ListingsView = React.createClass({
 	_bgClick: function() {
@@ -13,6 +14,7 @@ const ListingsView = React.createClass({
 		STORE.on("storeChanged", () => {
 			this.setState(STORE._getData())
 		})
+		ACTIONS.fetchListings()
 	},
 	componentWillUnmount: function() {
 		STORE.off("storeChanged")
@@ -23,6 +25,8 @@ const ListingsView = React.createClass({
 	render: function() {
 		var LoginPopupClass = this.state.showLogin ? "make-visible" : "make-hidden"
 		var bgClass = this.state.showLogin ? "make-visible" : "make-hidden"
+		console.log("STORE",this.state.isLoggedIn)
+
 		return (
 			<div className="listings-view">
 				<Header showLogin={this.state.showLogin} isLoggedIn={this.state.isLoggedIn}/>

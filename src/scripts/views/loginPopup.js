@@ -25,11 +25,13 @@ const LoginPopup = React.createClass({
 const LoginView = React.createClass({
 	render: function() {
 		//display container based on STORE loginPopupView property. Changed by LoginPopup component
-		var viewToDisplay = this.props.currentView === "Register" ? <RegisterContainer /> : <LoginContainer />
+		var viewToDisplay = this.props.currentView 
 
 		return (
 			<div className="login-popup-view">
-				{viewToDisplay}
+				{
+					viewToDisplay === "Register" ? <RegisterContainer /> : <LoginContainer />
+				}
 			</div>
 		)
 	}
@@ -52,8 +54,8 @@ const LoginContainer = React.createClass({
 			<div className="login-container">
 				<h3>Login</h3>
 				<form onSubmit={this._handleSubmit}>
-					<input type="email" name="email" placeholder="Enter Email or Username" />
-					<input type="password" name="password" placeholder="Enter Password" />
+					<input type="email" name="email" placeholder="Enter Email" required />
+					<input type="password" name="password" placeholder="Enter Password" required />
 					<button type="submit">Submit</button>
 				</form>
 			</div>
@@ -65,33 +67,34 @@ const RegisterContainer = React.createClass({
 	_handleSubmit: function(event) {
 		event.preventDefault()
 
+		for(var i = 0; i < event.target.length; i++) {
+			console.log(event.target[i])
+		}
 		var userInputObj = {
 			email: event.target.email.value,
 			password: event.target.password.value,
 			username: event.target.username.value
 		}
 
-		if(ACTIONS.validate(event)) ACTIONS.registerUser(userInputObj)
+		ACTIONS.registerUser(userInputObj)
 
 		//clear fields after data is passed to ACTIONS
 		event.target.email.value = ""
 		event.target.password.value = ""
-		event.target.confirmPassword.value = ""
+		// event.target.confirmPassword.value = ""
 		event.target.username.value = ""
-	},
-	_storePassword: function(event) {
-		STORE._set(event.target.name,event.target.value)
-		console.log(STORE)
 	},
 	render: function() {
 		return (
 			<div className="register-container">
 				<h3>Register</h3>
 				<form onSubmit={this._handleSubmit}>
-					<input type="email" name="email" placeholder="Enter Email" />
-					<input type="password" name="password" placeholder="Enter Password" onBlur={this._storePassword} />
-					<input type="password" name="confirmPassword" placeholder="Confirm Password" onBlur={this._storePassword} />
-					<input name="username" placeholder="Enter Username" />
+					<input type="email" name="email" placeholder="Enter Email" required />
+					<input type="password" name="password" placeholder="Enter Password" required />
+					{
+						// TODO: <input type="password" name="confirmPassword" placeholder="Confirm Password" />
+					}
+					<input name="username" placeholder="Enter Username" required />
 					<button type="submit">Submit</button>
 				</form>
 			</div>

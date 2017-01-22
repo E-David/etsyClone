@@ -29,25 +29,28 @@ const Header = React.createClass({
 })
 
 const UserWrapper = React.createClass({
-	_handleClick: function() {
+	_handleSignIn: function() {
 		STORE.set("showLogin",true)
 	},
+	_handleSignOut: function() {
+		ACTIONS.logoutUser()
+	},
 	render: function() {
-		if(!this.props.isLoggedIn) {
+		if(this.props.isLoggedIn) {
 			return (
 				<div className="user-wrapper">
-					<h3 onClick={this._handleClick}>Register</h3>
-					<button onClick={this._handleClick}>Sign In</button>
+					<div className="user-details">
+						<h3>{`Welcome ${User.getCurrentUser().get("username")}!`}</h3>
+						<a href="#favorites">My favorites</a>
+					</div> 
+					<h3 onClick={this._handleSignOut}>Sign Out</h3>
 				</div>
 			)
 		} else {
 			return (
 				<div className="user-wrapper">
-					<div className="user-details">
-						<h3>{`Welcome ${User.getCurrentUser().name}!`}</h3>
-						<a href="#favorites">My favorites</a>
-					</div> 
-					<h3 onClick={this._handleClick}>Sign Out</h3>
+					<h3 onClick={this._handleClick}>Register</h3>
+					<button onClick={this._handleSignIn}>Sign In</button>
 				</div>
 			)
 		}

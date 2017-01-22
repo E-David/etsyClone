@@ -1,13 +1,14 @@
 import Backbone from "backbone"
 import _ from "underscore"
 import {EtsyCollection,FavCollection,EtsyModel} from "./models/dataModels"
+import UTILS from "./utils"
 
 const STORE = _.extend(Backbone.Events, {
 	_data: {
 		etsyCollection: new EtsyCollection(),
 		etsyModel: new EtsyModel(),
 		favCollection: new FavCollection(),
-		isLoggedIn: false,
+		isLoggedIn: UTILS.checkLoggedIn(),
 		loginPopupView: "Sign In", // Sign In | Register
 		showLogin: false
 	},
