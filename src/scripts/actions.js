@@ -5,29 +5,36 @@ import User from "./models/userModel"
 const ACTIONS = {
 	addFavorite: function(model) {
 		var favModel = new FavModel(model.attributes)
+
+		favModel.set ({
+			user_id: User.getCurrentUser()._id
+		})
+		//FIX ERROR HERE, UNDEFINED ID
+		console.log(favModel)
 		favModel.save()
-				.done(()=>console.log("save complete",STORE._get("favCollection")))
-				.fail(()=>console.log("save failed"))
+				.fail((err)=> alert(`Unable to add favorite. See error: ${err}`))
 	},
 	deleteFavorite: function(model) {
 		model.destroy()
-			.done(()=>alert(model.get('listing_id') + ' successfully deleted'))
-			.fail(()=>alert(model.get('listing_id') + " failed to delete"))
+			.fail((err)=>alert(`Failed to remove favorite see error: ${err}`))
 		STORE._emitChange()
 	},
 
 	fetchFavorites: function() {
 		var favColl = new FavCollection()
-		// we need to tell this collection to fetch data
-		favColl.fetch().then(
+
+		favColl.fetch({
+			data: {
+				user_id: User.getCurrentUser()._id
+			}
+		}).then(
 			function(){
 				STORE._set({
 					favCollection: favColl
 				})
 			},
 			function(err) {
-				alert('problem retrieving fave data')
-				console.log(err)
+				alert(`Unable to access favorites. See error: ${err}`)
 			}
 		)
 	},
@@ -66,13 +73,11 @@ const ACTIONS = {
 		User.login(email,password)
 			.then(
 				function(resp){
-					alert(`Logged in as ${email}`)
 					STORE._set("isLoggedIn", true)
 					location.hash = "home"
 				},
 				function(err){
-					console.log(err)
-					alert("An error occurred while logging in")
+					alert(`An error occurred while logging in. See error: ${err}`)
 				}
 			)
 	},
@@ -80,12 +85,11 @@ const ACTIONS = {
 		User.logout()
 			.then(
 				function(){
-					alert("You have successfully logged out")
 					STORE._set("isLoggedIn", false)
 					location.hash = "home"
 				},
-				function(){
-					alert("An error occurred while logging out")
+				function(err){
+					alert(`An error occurred while logging out. See error: ${err}`)
 				}
 			)
 	},
@@ -93,11 +97,10 @@ const ACTIONS = {
 		User.register(userInputObj)
 			.then(
 				function(){
-					alert(`${userInputObj.email} has successfully registered`)
+					toastr.success(`${userInputObj.email} has successfully registered`)
 				},
 				function(err){
-					console.log(err)
-					alert("An error occured while registering")
+					alert(`An error occured while registering. See error: ${err}`)
 				}
 			)
 	},
@@ -122,9 +125,6 @@ const ACTIONS = {
 	},
 	togglePopupView: function(buttonClicked) {
 		STORE._set("loginPopupView",buttonClicked)
-	},
-	validate: function(event) {
-		
 	}
 }
 

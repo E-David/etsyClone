@@ -52,11 +52,10 @@ const LoginContainer = React.createClass({
 	render: function() {
 		return (
 			<div className="login-container">
-				<h3>Login</h3>
 				<form onSubmit={this._handleSubmit}>
 					<input type="email" name="email" placeholder="Enter Email" required />
 					<input type="password" name="password" placeholder="Enter Password" required />
-					<button type="submit">Submit</button>
+					<button type="submit">Sign In</button>
 				</form>
 			</div>
 		)
@@ -67,9 +66,6 @@ const RegisterContainer = React.createClass({
 	_handleSubmit: function(event) {
 		event.preventDefault()
 
-		for(var i = 0; i < event.target.length; i++) {
-			console.log(event.target[i])
-		}
 		var userInputObj = {
 			email: event.target.email.value,
 			password: event.target.password.value,
@@ -87,7 +83,6 @@ const RegisterContainer = React.createClass({
 	render: function() {
 		return (
 			<div className="register-container">
-				<h3>Register</h3>
 				<form onSubmit={this._handleSubmit}>
 					<input type="email" name="email" placeholder="Enter Email" required />
 					<input type="password" name="password" placeholder="Enter Password" required />
@@ -95,7 +90,7 @@ const RegisterContainer = React.createClass({
 						// TODO: <input type="password" name="confirmPassword" placeholder="Confirm Password" />
 					}
 					<input name="username" placeholder="Enter Username" required />
-					<button type="submit">Submit</button>
+					<button type="submit">Register</button>
 				</form>
 			</div>
 		)

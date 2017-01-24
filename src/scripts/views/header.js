@@ -5,10 +5,11 @@ import User from "../models/userModel"
 
 const Header = React.createClass({
 	_handleSubmit: function(event) {
-		var query = event.target.value
+		var query = event.target.userQuery.value
 
 		event.preventDefault()
 		ACTIONS.search(query)
+
 		//clear input field after sending data to ACTIONS
 		query = ""
 	},
@@ -18,7 +19,7 @@ const Header = React.createClass({
 				<div className="header-wrapper">
 					<a href="#home" className="logo">Etsy</a>
 					<form className="search-wrapper" onSubmit={this._handleSubmit}>
-						<input className="search-bar" placeholder="Search for items or shops" />
+						<input className="search-bar" placeholder="Search for items or shops" name="userQuery" required />
 						<button className="search-button">Search</button>
 					</form>
 				</div>
@@ -41,16 +42,16 @@ const UserWrapper = React.createClass({
 				<div className="user-wrapper">
 					<div className="user-details">
 						<h3>{`Welcome ${User.getCurrentUser().get("username")}!`}</h3>
-						<a href="#favorites">My favorites</a>
+						<a href="#favorites">My favorites <i className="material-icons md-24">favorite</i></a>
 					</div> 
-					<h3 onClick={this._handleSignOut}>Sign Out</h3>
+					<h3 className="sign-out" onClick={this._handleSignOut}>Sign Out</h3>
 				</div>
 			)
 		} else {
 			return (
 				<div className="user-wrapper">
-					<h3 onClick={this._handleClick}>Register</h3>
-					<button onClick={this._handleSignIn}>Sign In</button>
+					<h3 className="register" onClick={this._handleClick}>Register</h3>
+					<button className="sign-in" onClick={this._handleSignIn}>Sign In</button>
 				</div>
 			)
 		}

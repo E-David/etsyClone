@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import Backbone from 'backbone'
 import init from './init'
 import ListingsView from "./views/listingsView"
+import FavoritesView from "./views/favoritesView"
+import DetailView from "./views/detailView"
 
 
 const app = function() {
@@ -21,10 +23,10 @@ const app = function() {
 			ReactDOM.render(<ListingsView query={query} />, document.querySelector(".container"))
 		},
 		handleDetails: function(listingId) {
-
+			ReactDOM.render(<DetailView listing={listingId} />, document.querySelector(".container"))
 		},
 		handleFavorites: function() {
-
+			ReactDOM.render(<FavoritesView />, document.querySelector(".container"))
 		},
 		redirect: function() {
 			location.hash = "home"

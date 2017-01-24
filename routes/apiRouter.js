@@ -3,6 +3,7 @@ const apiRouter = Router()
 let helpers = require('../config/helpers.js')
 
 let User = require('../db/schema.js').User
+let Fav = require('../db/schema.js').Fav
 
   
   apiRouter
@@ -45,7 +46,46 @@ let User = require('../db/schema.js').User
       })  
     })
 
-    // Routes for a Model(resource) should have this structure
+    apiRouter
+    //Routes for favorite
+    // Create one
+    .post("/favorites", function(req,res) {
+      var record = new Fav(req.body)
+      record.save(function(err, record){
+        if (err) {
+          res.status(500).send(err)
+        }
+        else {
+          res.json(record)
+        }
+      })
+    })
+
+    // Read many
+    .get('/favorites', function(req,res) {
+      Fav.find(req.query,function(err,records) {
+        if (err) {
+          res.status(500).send(err)
+        }
+        else {
+          res.json(records)
+        }
+      })
+    })
+
+    // Delete one
+    .delete('/favorites/:_id', function(req,res) {
+      Fave.remove({_id: req.params._id}, function(err) {
+        if (err) {
+          res.status(500).json(err)
+        }
+        else {
+          res.json({
+            status: 'record with id' + req.params._id + 'successfully deleted!'
+          })
+        }
+      })
+    })
 
 
 module.exports = apiRouter
