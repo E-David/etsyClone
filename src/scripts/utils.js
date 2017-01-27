@@ -6,6 +6,9 @@ const UTILS = {
 		var user = User.getCurrentUser()
 
 		return user !== null && user.attributes.email !== undefined
+	},
+	pluralizePeople: function(num) {
+		return num === 1 ? "person" : "people"
 	}
 }
 export default UTILS 

@@ -20,16 +20,15 @@ const Listing = React.createClass({
 		return `#details/ ${model.get("listingId")}`
 	},
 	_handleFavorite: function() {
-		console.log("HI")
 		ACTIONS.addFavorite(this.props.model)
 	},
 	render: function() {
 		var listingModel = this.props.model
 		return (
 			<div className="listing">
+				<h5 onClick={this._handleFavorite}>FAV</h5>
 				<a href={this._getDetailViewUrl(listingModel)}>
 					<img src={listingModel.get("MainImage").url_170x135} />
-					<h5 onClick={this._handleFavorite}>FAV</h5>
 					<div className="details-wrapper">
 						<h5 className="listing-name">
 							{listingModel.get("title")}

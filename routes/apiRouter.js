@@ -75,7 +75,7 @@ let Fav = require('../db/schema.js').Fav
 
     // Delete one
     .delete('/favorites/:_id', function(req,res) {
-      Fave.remove({_id: req.params._id}, function(err) {
+      Fav.remove({_id: req.params._id}, function(err) {
         if (err) {
           res.status(500).json(err)
         }

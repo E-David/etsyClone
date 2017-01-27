@@ -6,13 +6,15 @@ const ACTIONS = {
 	addFavorite: function(model) {
 		var favModel = new FavModel(model.attributes)
 
+		console.log(User.getCurrentUser().id)
 		favModel.set ({
-			user_id: User.getCurrentUser()._id
+			_userId: User.getCurrentUser().id
 		})
 		//FIX ERROR HERE, UNDEFINED ID
-		console.log(favModel)
+		console.log("MODEL TO SAVE", favModel)
 		favModel.save()
-				.fail((err)=> alert(`Unable to add favorite. See error: ${err}`))
+				.fail((err)=> console.log(err))
+				// .fail((err)=> alert(`Unable to add favorite. See error: ${err}`))
 	},
 	deleteFavorite: function(model) {
 		model.destroy()
@@ -25,7 +27,7 @@ const ACTIONS = {
 
 		favColl.fetch({
 			data: {
-				user_id: User.getCurrentUser()._id
+				_userId: User.getCurrentUser().id
 			}
 		}).then(
 			function(){
@@ -38,7 +40,7 @@ const ACTIONS = {
 			}
 		)
 	},
-	fetchListingDetails: function(listingId) {
+	fetchDetails: function(listingId) {
 		var model = new EtsyModel
 		model["_listingId"] = listingId
 		model.fetch({
@@ -48,7 +50,6 @@ const ACTIONS = {
 			    "includes": "MainImage,Shop"
 		    }
 		}).then(function(){
-			console.log(model)
 			STORE._set({
 				etsyModel: model
 			})
@@ -68,6 +69,10 @@ const ACTIONS = {
 				etsyCollection: coll
 			})
 		})
+	},
+	getMaterials: function(materialsArr) {
+		materialsArr.map<li>Materials: {model.get("materials").join(", ")}</li> : <li>Material: {model.get("materials")}</li>) : ""
+		
 	},
 	loginUser: function(email,password) {
 		User.login(email,password)
