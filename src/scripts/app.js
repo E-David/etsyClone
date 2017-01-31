@@ -23,7 +23,7 @@ const app = function() {
 			ReactDOM.render(<ListingsView query={query} />, document.querySelector(".container"))
 		},
 		handleDetails: function(listingId) {
-			ReactDOM.render(<DetailView listing={listingId} />, document.querySelector(".container"))
+			ReactDOM.render(<DetailView listingId={listingId} />, document.querySelector(".container"))
 		},
 		handleFavorites: function() {
 			ReactDOM.render(<FavoritesView />, document.querySelector(".container"))

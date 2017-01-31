@@ -16,13 +16,32 @@ $secondary-font-color: #3292B5;
 	width: 100%;
 	min-height: 100vh;
 	background: $bg-color;
-
+	header {
+		width: 100%;
+		border: solid 1px black;
+		padding-bottom: 3rem;
+		display: inline-block;
+		.logo {
+			text-decoration: none;
+			font-size: 26px;
+		}
+		.search-wrapper {
+			border: solid 1px black;
+			display: inline-block;
+		}
+		.user-wrapper {
+			border: solid 1px black;
+			display: inline-block;
+		}
+	}
+	.listings-container {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
 	.listings-view {
 		margin: 0 auto;
-
-		header {
-			
-		}
+		width: 80%;
 	}
 }
 

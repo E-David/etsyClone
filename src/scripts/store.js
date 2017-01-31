@@ -10,7 +10,8 @@ const STORE = _.extend(Backbone.Events, {
 		favCollection: new FavCollection(),
 		isLoggedIn: UTILS.checkLoggedIn(),
 		loginPopupView: "Sign In", // Sign In | Register
-		showLogin: false
+		showLogin: false,
+		isLoading: false
 	},
 	_emitChange: function() {
 		this.trigger("storeChanged")
@@ -31,6 +32,7 @@ const STORE = _.extend(Backbone.Events, {
 			var key = input
 			this._data[key] = value
 		}
+		console.log("IN STORE",input)
 		this._emitChange()
 	}
 })

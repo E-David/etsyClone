@@ -25,6 +25,7 @@ const ACTIONS = {
 	fetchFavorites: function() {
 		var favColl = new FavCollection()
 
+		STORE._set("isLoading",true)
 		favColl.fetch({
 			data: {
 				_userId: User.getCurrentUser().id
@@ -32,7 +33,8 @@ const ACTIONS = {
 		}).then(
 			function(){
 				STORE._set({
-					favCollection: favColl
+					favCollection: favColl,
+					isLoading: false
 				})
 			},
 			function(err) {
@@ -41,22 +43,30 @@ const ACTIONS = {
 		)
 	},
 	fetchDetails: function(listingId) {
-		var model = new EtsyModel
+		var model = new EtsyModel()
 		model["_listingId"] = listingId
+		STORE._set("isLoading",true)
 		model.fetch({
 			dataType: 'jsonp',
 			data: {
 			   	"api_key": model._apiKey,
 			    "includes": "MainImage,Shop"
 		    }
-		}).then(function(){
-			STORE._set({
-				etsyModel: model
-			})
-		})
+		}).then(
+			function(){
+				STORE._set({
+					etsyModel: model,
+					isLoading: false
+				})
+			},
+			function(err) {
+				alert(`Unable to access favorites. See error: ${err}`)
+			}
+		)
 	},
 	fetchListings: function(query) {
-		var coll = STORE._get('etsyCollection')
+		var coll = new EtsyCollection()
+		STORE._set("isLoading",true)
 		coll.fetch({
 			dataType: 'jsonp',
 			data: {
@@ -66,13 +76,10 @@ const ACTIONS = {
 		    }
 		}).then(function(){
 			STORE._set({
-				etsyCollection: coll
+				etsyCollection: coll,
+				isLoading: false
 			})
 		})
-	},
-	getMaterials: function(materialsArr) {
-		materialsArr.map<li>Materials: {model.get("materials").join(", ")}</li> : <li>Material: {model.get("materials")}</li>) : ""
-		
 	},
 	loginUser: function(email,password) {
 		User.login(email,password)

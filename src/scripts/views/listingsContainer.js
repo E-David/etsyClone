@@ -1,23 +1,37 @@
 import React from "react"
 import toastr from "toastr"
 import ACTIONS from "../actions"
+import Loading from "./loading"
 
 const ListingsContainer = React.createClass({
 	_makeListings: function(mod) {
 		return <Listing model={mod} key={mod.cid} />
 	},
 	render: function() {
-		return (
-			<div className="listings-container">
-				{this.props.collection.map(this._makeListings)}
-			</div>
-		)
+		if(this.props.loading === true) {
+			return (
+				<Loading />
+			)
+		} else {
+			return (
+				<div className="listings-container">
+					{this.props.collection.map(this._makeListings)}
+				</div>
+			)
+		}
 	}
 })
 
 const Listing = React.createClass({
 	_getDetailViewUrl: function(model) {
-		return `#details/ ${model.get("listingId")}`
+		return `#details/${model.get("listing_id")}`
+	},
+	_getListingImage: function(model) {
+		if(model.get("MainImage").hasOwnProperty("url_170x135")) {
+			return model.get("MainImage").url_170x135
+		} else {
+			return "http://xpenology.org/wp-content/themes/qaengine/img/default-thumbnail.jpg"
+		}
 	},
 	_handleFavorite: function() {
 		ACTIONS.addFavorite(this.props.model)
@@ -26,9 +40,8 @@ const Listing = React.createClass({
 		var listingModel = this.props.model
 		return (
 			<div className="listing">
-				<h5 onClick={this._handleFavorite}>FAV</h5>
 				<a href={this._getDetailViewUrl(listingModel)}>
-					<img src={listingModel.get("MainImage").url_170x135} />
+					<img src={this._getListingImage(listingModel)} />
 					<div className="details-wrapper">
 						<h5 className="listing-name">
 							{listingModel.get("title")}

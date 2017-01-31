@@ -4,13 +4,14 @@ import Header from "./header"
 import ACTIONS from "../actions"
 import UTILS from "../utils"
 import ListingsContainer from "./listingsContainer"
+import Loading from "./loading"
 
 const DetailView = React.createClass({
 	componentWillMount: function() {
+		ACTIONS.fetchDetails(this.props.listingId)
 		STORE.on("storeChanged", () => {
 			this.setState(STORE._getData())
 		})
-		ACTIONS.fetchDetails()
 	},
 	componentWillUnmount: function() {
 		STORE.off("storeChanged")
@@ -22,7 +23,7 @@ const DetailView = React.createClass({
 		return (
 			<div className="detail-view">
 				<Header showLogin={this.state.showLogin} isLoggedIn={this.state.isLoggedIn}/>
-				<DetailContainer model={this.state.EtsyModel} />
+				<DetailContainer model={this.state.etsyModel} loading={this.state.isLoading} />
 			</div>
 		)
 	}
@@ -30,17 +31,24 @@ const DetailView = React.createClass({
 
 var DetailContainer = React.createClass({
 	render: function() {
-		return (
-			<div className="listing-container">
-				<ListingLeftCol model={this.props.model}/>
-				<ListingRightCol model={this.props.model}/>
-			</div>
+		if(this.props.loading === true) {
+			return (
+				<Loading />
 			)
+		} else {
+			return (
+				<div className="listing-container">
+					<ListingLeftCol model={this.props.model}/>
+					<ListingRightCol model={this.props.model}/>
+				</div>
+			)
+		}
 	}
 })
 
 var ListingLeftCol = React.createClass({
 	render: function() {
+		var listingModel = this.props.model
 		return (
 			<div className="listing-left-col">
 				<div className="favorite-bar">
@@ -52,7 +60,7 @@ var ListingLeftCol = React.createClass({
 				</div>
 				<img src={listingModel.get("MainImage").url_570xN} />
 				<div className="item-description">
-					<h4>{this.props.model.get("description")}</h4>
+					<h4>{listingModel.get("description")}</h4>
 				</div>
 			</div>
 		)
@@ -65,14 +73,22 @@ var ListingRightCol = React.createClass({
 	},
 	_checkIfMaterials: function(mod) {
 		var materialsArr = mod.get("materials")
-		if(materialsArr.length > 0) return ACTIONS.getMaterials(materialsArr)
+
+		if(materialsArr.length > 0) {
+			if(materialsArr.length === 1){
+				return <li>Material: {materialsArr[0]}</li>
+			} else {
+				return <li>Materials: {materialsArr.join(", ")}</li>
+			}
+		}
 	},
 	_getFavorites: function(mod) {
 		var numFavs = mod.get("num_favorers")
-		return `${numFavs} ${UTILS.pluralizePeople(numViews)}`
+		return `${numFavs} ${UTILS.pluralizePeople(numFavs)}`
 	},
 	_getViews: function(mod) {
 		var numViews = mod.get("views")
+		console.log(numViews)
 		return `${numViews} ${UTILS.pluralizePeople(numViews)}`
 	},
 	render: function() {
@@ -91,7 +107,7 @@ var ListingRightCol = React.createClass({
 					</ul>
 				</div>
 			</div>
-			)
+		)
 	}
 })
 
