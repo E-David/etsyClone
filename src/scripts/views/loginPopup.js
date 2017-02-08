@@ -10,7 +10,7 @@ const LoginPopup = React.createClass({
 	},
 	render: function() {
 		return (
-			<div className="login-popup">
+			<div className={`login-popup ${this.props.passedClass}`}>
 				<div className="login-header">
 					<button onClick={this._handleButton} className="register-button" value="Register">Register</button>
 					<button onClick={this._handleButton} className="sign-in-button" value="Sign In">Sign In</button>

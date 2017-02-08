@@ -27,8 +27,8 @@ const Listing = React.createClass({
 		return `#details/${model.get("listing_id")}`
 	},
 	_getListingImage: function(model) {
-		if(model.get("MainImage").hasOwnProperty("url_170x135")) {
-			return model.get("MainImage").url_170x135
+		if(model.get("MainImage").hasOwnProperty("url_570xN")) {
+			return model.get("MainImage").url_570xN
 		} else {
 			return "http://xpenology.org/wp-content/themes/qaengine/img/default-thumbnail.jpg"
 		}
@@ -39,23 +39,25 @@ const Listing = React.createClass({
 	render: function() {
 		var listingModel = this.props.model
 		return (
-			<div className="listing">
-				<a href={this._getDetailViewUrl(listingModel)}>
-					<img src={this._getListingImage(listingModel)} />
-					<div className="details-wrapper">
-						<h5 className="listing-name">
-							{listingModel.get("title")}
-						</h5>
-						<div className="shop-details-wrapper">
-							<h5 className="shop-name">
-								{listingModel.get("Shop").shop_name}
-							</h5>
-							<h5 className="listing-price">
-								{"$" + listingModel.get("price")}
-							</h5>
+			<div className="listing-cell">
+				<div className="listing">
+					<a href={this._getDetailViewUrl(listingModel)}>
+						<img src={this._getListingImage(listingModel)} />
+						<div className="details-wrapper">
+							<h6 className="listing-name">
+								{listingModel.get("title")}
+							</h6>
+							<div className="shop-details-wrapper">
+								<h6 className="shop-name">
+									{listingModel.get("Shop").shop_name}
+								</h6>
+								<h6 className="listing-price">
+									{"$" + listingModel.get("price")}
+								</h6>
+							</div>
 						</div>
-					</div>
-				</a>
+					</a>
+				</div>
 			</div>
 		)
 	}

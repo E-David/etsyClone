@@ -19,7 +19,7 @@ const Header = React.createClass({
 				<div className="header-wrapper">
 					<a href="#home" className="logo">Etsy</a>
 					<form className="search-wrapper" onSubmit={this._handleSubmit}>
-						<input className="search-bar" placeholder="Search for items or shops" name="userQuery" required />
+						<input className="search-bar" placeholder="Search for items" name="userQuery" required />
 						<button className="search-button">Search</button>
 					</form>
 				</div>
@@ -31,7 +31,7 @@ const Header = React.createClass({
 
 const UserWrapper = React.createClass({
 	_handleSignIn: function() {
-		STORE.set("showLogin",true)
+		STORE._set("showLogin",true)
 	},
 	_handleSignOut: function() {
 		ACTIONS.logoutUser()
@@ -50,7 +50,7 @@ const UserWrapper = React.createClass({
 		} else {
 			return (
 				<div className="user-wrapper">
-					<h3 className="register" onClick={this._handleClick}>Register</h3>
+					<h3 className="register" onClick={this._handleSignIn}>Register</h3>
 					<button className="sign-in" onClick={this._handleSignIn}>Sign In</button>
 				</div>
 			)

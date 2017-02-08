@@ -5,10 +5,20 @@ $primary-color: #FFFFFF;
 $accent-color: #E1E3DF;
 $bg-color: #F5F5F1;
 $text-color: #666666;
-$secondary-font-color: #3292B5;
+$secondary-text-color: #BBB;
+$header-text-primary: #F56400;
+$header-text-secondary: #3CB1CB;
 
 * {
 	box-sizing: border-box;
+}
+
+input:focus, button:focus {
+	outline: none;
+}
+
+a, a:link, a:hover, a:visited {
+	text-decoration: none;
 }
 
 .container {
@@ -18,41 +28,177 @@ $secondary-font-color: #3292B5;
 	background: $bg-color;
 	header {
 		width: 100%;
-		border: solid 1px black;
-		padding-bottom: 3rem;
+		padding: 2% 4%;
+		padding-bottom: 1rem;
+		margin-bottom: 5px;
+		border-bottom: 1px solid $secondary-text-color;
 		display: inline-block;
-		.logo {
-			text-decoration: none;
-			font-size: 26px;
-		}
-		.search-wrapper {
-			border: solid 1px black;
-			display: inline-block;
+		background: $primary-color;
+		.header-wrapper {
+			float: left;
+			.logo {
+			    font-size: 2.5rem;
+			    padding-right: 15px;
+			    color: $header-text-primary;
+			}
+			.search-wrapper {
+				display: inline-block;
+				vertical-align: text-bottom;
+				.search-bar {
+					font-size: 1rem;
+				    padding: 5px 10px;
+				    width: 250px;
+				    line-height: 1rem;
+				    border: 1px solid #333;
+				    border-right: none;
+				    border-radius: 3px 0px 0px 3px;
+				    background: $bg-color;
+				    transition: 0.2s all ease;
+				}
+				.search-bar:focus {
+					background: $primary-color;
+				}
+				button {
+					padding: 5px 10px;
+				    font-size: 1rem;
+				    line-height: 1rem;
+				    background-color: $header-text-secondary;
+				    color: #fff;
+				    border: 2px solid $header-text-secondary;
+				    border-radius: 0px 3px 3px 0px;
+				    transition: 0.2s all ease;
+				}
+				button:hover {
+					background-color: lighten($header-text-secondary,10);
+					border: 2px solid lighten($header-text-secondary,10);
+				}
+
+				button:active {
+					background-color: darken($header-text-secondary,10);
+					border: 2px solid darken($header-text-secondary,10);
+				}
+			}
 		}
 		.user-wrapper {
-			border: solid 1px black;
 			display: inline-block;
+			float: right;
+			text-align: right;
+			width: 40%;
+			.user-details {
+				width: 75%;
+			    display: inline-block;
+			    line-height: 1.5rem;
+			    margin-right: 15px;
+			    h3 {
+			    	margin: 0;
+				    text-overflow: ellipsis;
+				    white-space: nowrap;
+				    overflow: hidden;
+				    font-size: 1.25rem;
+    				color: $header-text-secondary;
+    				text-align: right;
+			    }
+			    a {
+			    	font-size: 1.25rem;
+			    	color: $header-text-primary;
+			    }
+			    a:hover, a:hover i {
+			    	color: lighten($header-text-primary,10);
+			    }
+			    i {
+			    	vertical-align: top;
+    				color: $header-text-primary;
+			    }
+			}
+			.sign-out {
+				display: inline-block;
+				color: $header-text-secondary;
+    			font-size: 1rem;
+    			vertical-align: initial;
+    			cursor:	pointer;
+			}
+			.sign-out:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+	.listings-view {
+		margin: 0 auto;
+		.make-visible {
+			transition: 0.3s all ease-in-out;
+			visibility: visible;
+		}
+		.make-hidden {
+			transition: 0s all ease-in-out;
+			visibility: hidden;
 		}
 	}
 	.listings-container {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-	}
-	.listings-view {
+		align-items: stretch;
 		margin: 0 auto;
-		width: 80%;
+		.listing-cell {
+			width: 240px;
+			margin: 10px;
+			padding-top: 5px;
+    		.listing {
+    			background: $primary-color;
+    			border-radius: 3px;
+    			border: 1px solid #E1E3DF;
+    			border-bottom-color: #CBCCC9;
+    			width: 231px;
+    			margin: 0 auto;
+				img {
+					height: 183px;
+					width: 229px;
+					background: none;
+				}
+				.details-wrapper {
+					background-color: $primary-color;
+					width: 229px;
+					h6 {
+						font-size: 0.75rem;
+					    text-overflow: ellipsis;
+					    white-space: nowrap;
+					    overflow: hidden;
+					    padding: 5px 10px;
+					    line-height: 0.5rem;
+					    margin: 0;
+					}
+					.listing-name {
+						width: 100%;
+						color: $text-color;
+					}
+					.shop-name, .listing-price {
+						display: inline-block;
+					}
+					.shop-name {
+						float: left;
+						text-align: left;
+						color: $secondary-text-color;
+					}
+					.listing-price {
+						float: right;
+						text-align: right;
+						color: #8DCA5F;
+					}
+				}
+				.details-wrapper:after {
+					clear: both;
+					content: "";
+					display: table;
+					padding-bottom: 5px;
+				}
+			}
+			.listing:hover {
+				box-shadow: 0px 1px darken(#E1E3DF,20), 0px 0px 2px 0px darken(#CBCCC9,20)
+			}
+		}
 	}
 }
 
-.make-visible {
-	transition: 0.3s all ease-in-out;
-	visibility: visible;
-}
-.make-hidden {
-	transition: 0s all ease-in-out;
-	visibility: hidden;
-}
 
 
 @media (min-width: 716px) {
