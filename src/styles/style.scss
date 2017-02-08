@@ -120,10 +120,38 @@ a, a:link, a:hover, a:visited {
 			.sign-out:hover {
 				text-decoration: underline;
 			}
+			.register, .sign-in {
+				font-size: 1.25rem;
+				color: $header-text-secondary;
+				display: inline-block;
+			}
+			.sign-in {
+				margin-left: 15px;
+				border: 2px solid $header-text-secondary;
+				border-radius: 3px;
+				padding: 5px 10px;
+			}
+			.register:hover {
+				color: lighten($header-text-secondary,10);
+				text-decoration: underline;
+			}
+			.sign-in:hover {
+				color: lighten($header-text-secondary,10);
+				border: 2px solid lighten($header-text-secondary,10);
+			} 
 		}
 	}
 	.listings-view {
 		margin: 0 auto;
+		position: relative;
+		.login-popup {
+			position: absolute;
+			top: 20%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			z-index: 5;
+			background-color: $primary-color;
+		}
 		.make-visible {
 			transition: 0.3s all ease-in-out;
 			visibility: visible;
@@ -131,6 +159,16 @@ a, a:link, a:hover, a:visited {
 		.make-hidden {
 			transition: 0s all ease-in-out;
 			visibility: hidden;
+		}
+		.darken-bg {
+			width: 100%;
+			height: 100vh;
+			background-color: black;
+			position: fixed;
+			top: 0;
+			left: 0;
+			opacity: 0.5;
+			z-index: 4;
 		}
 	}
 	.listings-container {

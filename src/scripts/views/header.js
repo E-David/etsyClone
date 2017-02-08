@@ -51,7 +51,7 @@ const UserWrapper = React.createClass({
 			return (
 				<div className="user-wrapper">
 					<h3 className="register" onClick={this._handleSignIn}>Register</h3>
-					<button className="sign-in" onClick={this._handleSignIn}>Sign In</button>
+					<h3 className="sign-in" onClick={this._handleSignIn}>Sign In</h3>
 				</div>
 			)
 		}
