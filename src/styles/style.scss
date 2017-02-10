@@ -151,6 +151,45 @@ a, a:link, a:hover, a:visited {
 			transform: translate(-50%,-50%);
 			z-index: 5;
 			background-color: $primary-color;
+			width: 500px;
+			.login-header {
+				padding: 40px 40px 0px;
+				background-color: $bg-color;
+				border-bottom: 1px solid #333;
+				button,button:focus {
+					border: 1px solid #333;
+					padding: 10px 20px;
+					font-size: 1rem;
+					cursor: pointer;
+					margin-bottom: -3px;
+					border-bottom: none;
+
+				}
+				button:hover {
+					text-decoration: underline;
+				}
+				button:first-child {
+					border-right: none;
+				}
+				button.active {
+					border-bottom: 3px solid #fff;
+					background-color: #fff;
+					color: $text-color;
+				}
+				button.inactive {
+					background-color: $bg-color;
+					color: $header-text-secondary;
+				}
+			}
+			.login-popup-view {
+				padding: 20px 40px;
+				input {
+					display: block;
+				    padding: 5px 10px;
+				    margin-bottom: 15px;
+				    width: 350px;
+				}
+			}
 		}
 		.make-visible {
 			transition: 0.3s all ease-in-out;

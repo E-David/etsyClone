@@ -9,13 +9,15 @@ const LoginPopup = React.createClass({
 		ACTIONS.togglePopupView(buttonClicked)
 	},
 	render: function() {
+		var registerButtonClass = this.props.loginView === "Register" ? "active" : "inactive"
+		var signInButtonClass = this.props.loginView === "Sign In" ? "active" : "inactive"
 		return (
 			<div className={`login-popup ${this.props.passedClass}`}>
 				<div className="login-header">
-					<button onClick={this._handleButton} className="register-button" value="Register">Register</button>
-					<button onClick={this._handleButton} className="sign-in-button" value="Sign In">Sign In</button>
+					<button onClick={this._handleButton} className={registerButtonClass} value="Register">Register</button>
+					<button onClick={this._handleButton} className={signInButtonClass} value="Sign In">Sign In</button>
 				</div>
-				<LoginView currentView={this.props.loginView} />
+				<LoginView loginView={this.props.loginView} />
 			</div>
 
 		)
@@ -25,7 +27,7 @@ const LoginPopup = React.createClass({
 const LoginView = React.createClass({
 	render: function() {
 		//display container based on STORE loginPopupView property. Changed by LoginPopup component
-		var viewToDisplay = this.props.currentView 
+		var viewToDisplay = this.props.loginView 
 
 		return (
 			<div className="login-popup-view">
