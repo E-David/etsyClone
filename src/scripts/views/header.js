@@ -31,7 +31,16 @@ const Header = React.createClass({
 
 const UserWrapper = React.createClass({
 	_handleSignIn: function() {
-		STORE._set("showLogin",true)
+		STORE._set({
+			showLogin: true,
+			loginPopupView: "Sign In"
+		})
+	},
+	_handleRegister: function() {
+		STORE._set({
+			showLogin: true,
+			loginPopupView: "Register"
+		})
 	},
 	_handleSignOut: function() {
 		ACTIONS.logoutUser()
@@ -50,7 +59,7 @@ const UserWrapper = React.createClass({
 		} else {
 			return (
 				<div className="user-wrapper">
-					<h3 className="register" onClick={this._handleSignIn}>Register</h3>
+					<h3 className="register" onClick={this._handleRegister}>Register</h3>
 					<h3 className="sign-in" onClick={this._handleSignIn}>Sign In</h3>
 				</div>
 			)

@@ -17,7 +17,7 @@ authRouter
       if (err) return res.status(500).send('error saving querying db for user')
 
       if(results !== null && results.length > 0 ) { 
-        return res.status(401).send(`oops, record for <${req.body.email}> already exists`)
+        return res.status(401).send(`an account with this email already exists`)
       }
 
       newUser.save(function(err, record){

@@ -1,6 +1,7 @@
 import STORE from "./store"
 import {EtsyCollection,EtsyModel,FavModel,FavCollection} from "./models/dataModels"
 import User from "./models/userModel"
+import toastr from "toastr"
 
 const ACTIONS = {
 	addFavorite: function(model) {
@@ -85,11 +86,14 @@ const ACTIONS = {
 		User.login(email,password)
 			.then(
 				function(resp){
-					STORE._set("isLoggedIn", true)
+					STORE._set({
+						isLoggedIn: true,
+						showLogin: false
+					})
 					location.hash = "home"
 				},
 				function(err){
-					alert(`An error occurred while logging in. See error: ${err}`)
+					toastr.error(err.responseText)
 				}
 			)
 	},
@@ -101,18 +105,20 @@ const ACTIONS = {
 					location.hash = "home"
 				},
 				function(err){
-					alert(`An error occurred while logging out. See error: ${err}`)
+					toastr.error(err.responseText)
 				}
 			)
 	},
 	registerUser: function(userInputObj) {
+		console.log(userInputObj)
 		User.register(userInputObj)
 			.then(
 				function(){
-					toastr.success(`${userInputObj.email} has successfully registered`)
+					toastr.success(`${userInputObj.username} has successfully registered`)
+					ACTIONS.loginUser(userInputObj.email,userInputObj.password)
 				},
 				function(err){
-					alert(`An error occured while registering. See error: ${err}`)
+					toastr.error(`${err.responseText}`)
 				}
 			)
 	},

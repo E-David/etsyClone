@@ -13,12 +13,35 @@ $header-text-secondary: #3CB1CB;
 	box-sizing: border-box;
 }
 
-input:focus, button:focus {
+input, button, input:focus, button:focus {
 	outline: none;
 }
 
 a, a:link, a:hover, a:visited {
 	text-decoration: none;
+}
+
+a, i, button {
+	cursor: pointer;
+}
+
+button {
+	padding: 5px 10px;
+    font-size: 1rem;
+    line-height: 1rem;
+    background-color: $header-text-secondary;
+    color: #fff;
+    border: 2px solid $header-text-secondary;
+    transition: 0.2s all ease;
+}
+button:hover {
+	background-color: lighten($header-text-secondary,10);
+	border: 2px solid lighten($header-text-secondary,10);
+}
+
+button:active {
+	background-color: darken($header-text-secondary,10);
+	border: 2px solid darken($header-text-secondary,10);
 }
 
 .container {
@@ -59,23 +82,7 @@ a, a:link, a:hover, a:visited {
 					background: $primary-color;
 				}
 				button {
-					padding: 5px 10px;
-				    font-size: 1rem;
-				    line-height: 1rem;
-				    background-color: $header-text-secondary;
-				    color: #fff;
-				    border: 2px solid $header-text-secondary;
 				    border-radius: 0px 3px 3px 0px;
-				    transition: 0.2s all ease;
-				}
-				button:hover {
-					background-color: lighten($header-text-secondary,10);
-					border: 2px solid lighten($header-text-secondary,10);
-				}
-
-				button:active {
-					background-color: darken($header-text-secondary,10);
-					border: 2px solid darken($header-text-secondary,10);
 				}
 			}
 		}
@@ -138,7 +145,10 @@ a, a:link, a:hover, a:visited {
 			.sign-in:hover {
 				color: lighten($header-text-secondary,10);
 				border: 2px solid lighten($header-text-secondary,10);
-			} 
+			}
+			.register, .sign-in, .sign-out {
+				cursor: pointer;
+			}
 		}
 	}
 	.listings-view {
@@ -146,24 +156,22 @@ a, a:link, a:hover, a:visited {
 		position: relative;
 		.login-popup {
 			position: absolute;
-			top: 20%;
+			top: 25vh;
 			left: 50%;
-			transform: translate(-50%,-50%);
+			transform: translateX(-50%);
 			z-index: 5;
 			background-color: $primary-color;
 			width: 500px;
+			button {
+				transition: 0s all ease-in-out;
+			}
 			.login-header {
 				padding: 40px 40px 0px;
 				background-color: $bg-color;
 				border-bottom: 1px solid #333;
 				button,button:focus {
 					border: 1px solid #333;
-					padding: 10px 20px;
-					font-size: 1rem;
 					cursor: pointer;
-					margin-bottom: -3px;
-					border-bottom: none;
-
 				}
 				button:hover {
 					text-decoration: underline;
@@ -172,13 +180,15 @@ a, a:link, a:hover, a:visited {
 					border-right: none;
 				}
 				button.active {
-					border-bottom: 3px solid #fff;
 					background-color: #fff;
+					border-bottom: 1px solid #fff;
 					color: $text-color;
+					margin-bottom: -1px;
 				}
 				button.inactive {
 					background-color: $bg-color;
 					color: $header-text-secondary;
+					border-bottom: 0px solid #fff;
 				}
 			}
 			.login-popup-view {
