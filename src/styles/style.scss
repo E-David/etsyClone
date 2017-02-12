@@ -201,13 +201,23 @@ button:active {
 				}
 			}
 		}
-		.make-visible {
-			transition: 0.3s all ease-in-out;
-			visibility: visible;
+		.slow-appear {
+			opacity: 1;
+			transition: 0.5s opacity ease-in-out;
 		}
-		.make-hidden {
-			transition: 0s all ease-in-out;
+		.fast-disappear {
+			opacity: 0;
+			transition: 0.2s opacity ease-in-out;
+		}
+		.bg-appear {
+			opacity: 0.5;
+			visibility: visible;
+			transition: 0.5s opacity ease-in-out;
+		}
+		.bg-disappear {
+			opacity: 0;
 			visibility: hidden;
+			transition: 0.2s opacity ease-in-out;
 		}
 		.darken-bg {
 			width: 100%;
@@ -216,7 +226,6 @@ button:active {
 			position: fixed;
 			top: 0;
 			left: 0;
-			opacity: 0.5;
 			z-index: 4;
 		}
 	}

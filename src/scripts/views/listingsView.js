@@ -24,14 +24,13 @@ const ListingsView = React.createClass({
 		return STORE._getData()
 	},
 	render: function() {
-		var LoginPopupClass = this.state.showLogin ? "make-visible" : "make-hidden"
-		var bgClass = this.state.showLogin ? "make-visible" : "make-hidden"
-		console.log(LoginPopupClass)
+		var loginPopupClass = this.state.showLogin ? "slow-appear" : "fast-disappear"
+		var bgClass = this.state.showLogin ? "bg-appear" : "bg-disappear"
 		return (
 			<div className="listings-view">
 				<Header showLogin={this.state.showLogin} isLoggedIn={this.state.isLoggedIn}/>
 				<ListingsContainer collection={this.state.etsyCollection} loading={this.state.isLoading} />
-				<LoginPopup passedClass={LoginPopupClass} loginView= {this.state.loginPopupView} />
+				<LoginPopup passedClass={loginPopupClass} loginView={this.state.loginPopupView} />
 				<div className={`darken-bg ${bgClass}`} onClick={this._bgClick}></div>
 			</div>
 		)
