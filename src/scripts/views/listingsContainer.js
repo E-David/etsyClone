@@ -60,11 +60,11 @@ const Listing = React.createClass({
 					</div>
 					<div className="details-wrapper">
 						<h6 className="listing-name">
-							{listingModel.get("title")}
+							{UTILS.cleanText(listingModel.get("title"))}
 						</h6>
 						<div className="shop-details-wrapper">
 							<h6 className="shop-name">
-								{listingModel.get("Shop").shop_name}
+								{UTILS.cleanText(listingModel.get("Shop").shop_name)}
 							</h6>
 							<h6 className="listing-price">
 								{"$" + listingModel.get("price")}

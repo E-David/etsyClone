@@ -60,7 +60,7 @@ var ListingLeftCol = React.createClass({
 				</div>
 				<img src={listingModel.get("MainImage").url_570xN} />
 				<div className="item-description">
-					<h4>{listingModel.get("description")}</h4>
+					<h4>{UTILS.cleanText(listingModel.get("description"))}</h4>
 				</div>
 			</div>
 		)

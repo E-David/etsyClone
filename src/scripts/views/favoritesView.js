@@ -21,7 +21,10 @@ const FavoritesView = React.createClass({
 		return (
 			<div className="favorites-view">
 				<Header showLogin={this.state.showLogin} isLoggedIn={this.state.isLoggedIn}/>
-				<ListingsContainer collection={this.state.favCollection} />
+				<ListingsContainer collection={this.state.favCollection} 
+								   loading={this.state.isLoading} 
+								   isLoggedIn={this.state.isLoggedIn}
+				/>
 			</div>
 		)
 	}

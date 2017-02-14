@@ -17,6 +17,9 @@ const UTILS = {
 
 		return user !== null && user.attributes.email !== undefined
 	},
+	cleanText: function(stringToClean) {
+		return stringToClean.replace(/&quot;/gi, '\"').replace(/&#39;/gi, '\'')
+	},
 	pluralizePeople: function(num) {
 		return num === 1 ? "person" : "people"
 	}
