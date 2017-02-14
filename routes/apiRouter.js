@@ -87,5 +87,17 @@ let Fav = require('../db/schema.js').Fav
       })
     })
 
+    // .delete('/favorites/', function(req,res) {
+    //   Fav.remove(function(err) {
+    //     if (err) {
+    //       res.status(500).json(err)
+    //     }
+    //     else {
+    //       res.json({
+    //         status: 'successfully deleted!'
+    //       })
+    //     }
+    //   })
+    // })
 
 module.exports = apiRouter

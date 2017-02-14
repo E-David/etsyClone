@@ -18,7 +18,7 @@ const usersSchema = new mongoose.Schema({
 const favSchema = new mongoose.Schema({
 	user_id: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
-  listingId: { type: Number },
+  listing_id: { type: Number, required: true},
   title: { type: String },
   price: { type: String },
   MainImage: { type: Object },

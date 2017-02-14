@@ -15,6 +15,7 @@ const ListingsView = React.createClass({
 		STORE.on("storeChanged", () => {
 			this.setState(STORE._getData())
 		})
+		ACTIONS.fetchFavorites()
 		ACTIONS.fetchListings()
 	},
 	componentWillUnmount: function() {
@@ -29,7 +30,10 @@ const ListingsView = React.createClass({
 		return (
 			<div className="listings-view">
 				<Header showLogin={this.state.showLogin} isLoggedIn={this.state.isLoggedIn}/>
-				<ListingsContainer collection={this.state.etsyCollection} loading={this.state.isLoading} />
+				<ListingsContainer collection={this.state.etsyCollection} 
+								   loading={this.state.isLoading} 
+								   isLoggedIn={this.state.isLoggedIn}
+				/>
 				<LoginPopup passedClass={loginPopupClass} loginView={this.state.loginPopupView} />
 				<div className={`darken-bg ${bgClass}`} onClick={this._bgClick}></div>
 			</div>

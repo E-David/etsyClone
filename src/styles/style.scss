@@ -202,12 +202,11 @@ button:active {
 			}
 		}
 		.slow-appear {
-			opacity: 1;
+			display: block;
 			transition: 0.5s opacity ease-in-out;
 		}
 		.fast-disappear {
-			opacity: 0;
-			transition: 0.2s opacity ease-in-out;
+			display:none;
 		}
 		.bg-appear {
 			opacity: 0.5;
@@ -246,10 +245,20 @@ button:active {
     			border-bottom-color: #CBCCC9;
     			width: 231px;
     			margin: 0 auto;
-				img {
-					height: 183px;
-					width: 229px;
-					background: none;
+    			.listing-image {
+    				position: relative;
+					img {
+						height: 183px;
+						width: 229px;
+						background: none;
+						cursor: pointer;
+					}
+					i {
+					position: absolute;
+					top: 0;
+					right: 0;
+					color: $header-text-primary;
+					}
 				}
 				.details-wrapper {
 					background-color: $primary-color;

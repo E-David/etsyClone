@@ -2,40 +2,57 @@ import STORE from "./store"
 import {EtsyCollection,EtsyModel,FavModel,FavCollection} from "./models/dataModels"
 import User from "./models/userModel"
 import toastr from "toastr"
+import UTILS from "./utils"
 
 const ACTIONS = {
 	addFavorite: function(model) {
 		var favModel = new FavModel(model.attributes)
 
-		console.log(User.getCurrentUser().id)
 		favModel.set ({
-			_userId: User.getCurrentUser().id
+			user_id: User.getCurrentUser().id
 		})
-		//FIX ERROR HERE, UNDEFINED ID
-		console.log("MODEL TO SAVE", favModel)
+
 		favModel.save()
-				.fail((err)=> console.log(err))
-				// .fail((err)=> alert(`Unable to add favorite. See error: ${err}`))
+				.then(
+					function() {
+						//need to fetchFavorites again to replace model with FavModel, fav icon is now filled in
+						ACTIONS.fetchFavorites()
+						STORE._emitChange()
+					},
+					function(err) {
+						toastr.error(`failed to favorite. ${err.responseText}`)
+					}
+				)
 	},
 	deleteFavorite: function(model) {
-		model.destroy()
-			.fail((err)=>alert(`Failed to remove favorite see error: ${err}`))
-		STORE._emitChange()
-	},
+		var favModel = this.findFavoriteToRemove(model)
 
+		if(favModel !== undefined) {
+			favModel.destroy()
+			STORE._emitChange()
+		} else {
+			alert("Error removing favorite")
+		}
+	},
+	findFavoriteToRemove: function(model) {
+		var favColl = STORE._get("favCollection"),
+			favModArray = favColl.models
+
+		for(var i = 0; i < favModArray.length; i++) {
+			if(favModArray[i].get("listing_id") === model.get("listing_id")) return favModArray[i]
+		}
+	},
 	fetchFavorites: function() {
 		var favColl = new FavCollection()
 
-		STORE._set("isLoading",true)
 		favColl.fetch({
 			data: {
-				_userId: User.getCurrentUser().id
+				user_id: User.getCurrentUser().id
 			}
 		}).then(
 			function(){
 				STORE._set({
-					favCollection: favColl,
-					isLoading: false
+					favCollection: favColl
 				})
 			},
 			function(err) {
